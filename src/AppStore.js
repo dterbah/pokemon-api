@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate'
 
 // correspond au data
 const state = {
@@ -17,7 +18,8 @@ const getters = {
         return state.pokemons.filter(pokemon => pokemon !== undefined && pokemon.id >= begin && pokemon.id <= end);
     },
     getPokemonById: (state) => (value) => {
-        return state.pokemons.filter(pokemon => pokemon.id === value)[0];
+        const result = state.pokemons.filter(pokemon => pokemon.id === value);
+        return result.length ? result[0] : undefined;
     },
     getPokemonByName: (state) => (value) => {
         return state.pokemons.filter(pokemon => pokemon.name === value)[0];
@@ -36,6 +38,7 @@ const store =  new Vuex.Store({
     mutations: mutations,
     getters: getters,
     strict: true, // avoid modification into the store
+    plugins: [createPersistedState({ storage: window.localStorages })],
 });
 
 export default store;

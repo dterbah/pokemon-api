@@ -7,7 +7,9 @@
 </template>
 
 <script>
+    import pokeStore from './AppStore.js';
     export default { 
+        store: pokeStore,
         name: 'app'
     }
 </script>

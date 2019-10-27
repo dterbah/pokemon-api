@@ -6,19 +6,11 @@ const router = new VueRouter({
             path: '/',
             component: require('./components/MainView.vue').default,
             name: 'main-view',
-            children: [{
-                path: '*',
-                component: require('./components/AppHeader.vue').default
-            }]
         },
         {
             path: '/pokemon/:pokemonId(\\d+)',
             component: require('./components/PokemonView.vue').default,
             name: 'pokemon-view',
-            children: [{
-                path: '*',
-                component: require('./components/AppHeader.vue').default
-            }]
         },
         {
             path: '*',

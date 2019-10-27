@@ -1,6 +1,7 @@
 <template>
     <div>
         <router-view></router-view>
+        <app-header></app-header>
         <div class="container">
             <loading-spinner v-show="procedingAjaxRequest"></loading-spinner>
             <pokemon-box-container
@@ -16,7 +17,6 @@
 
 <script>
 // store imports
-import pokeStore from "./../AppStore";
 import Vuex from "vuex";
 
 // ajax imports
@@ -29,10 +29,10 @@ import Pokemon from "./../Pokemon";
 import PokemonBoxContainer from "./PokemonBoxContainer.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import AppPaginer from './AppPaginer.vue';
+import AppHeader from './AppHeader.vue';
 
 export default {
-    store: pokeStore,
-    components: { PokemonBoxContainer, LoadingSpinner, AppPaginer },
+    components: { PokemonBoxContainer, LoadingSpinner, AppPaginer, AppHeader },
     name: "MainView",
     data() {
         return {
