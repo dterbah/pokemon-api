@@ -1,0 +1,44 @@
+.right-chevron {
+    position: absolute;
+    top: 35%;
+    right: 10%;
+}
+
+.chevron:hover {
+    cursor: pointer;
+}
+
+.left-chevron {
+    position: absolute;
+    top: 35%;
+    left: 10%;
+}
+
+/* header */
+.header {
+    width: 100%;
+    margin: 0;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* transitions */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .3s;
+}
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+    {
+    opacity: 0;
+}
