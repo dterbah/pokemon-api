@@ -15,6 +15,9 @@
                 <li>Base Happiness : {{ pokemon.specs.base_happiness }}</li>
                 <li>Color : {{ pokemon.specs.color.name }}</li>
                 <li>Capture rate : {{ pokemon.specs.capture_rate }}</li>
+                <li>More details <router-link :to="{name: 'pokemon-view', params: { pokemonId: pokemon.id } }">
+                    here
+                </router-link></li>
             </ul>
         </div>
     </div>
@@ -23,6 +26,7 @@
 <script>
 import PokemonBoxPaginer from "./PokemonBoxPaginer.vue";
 export default {
+    name: 'PokemonBox',
     props: {
         pokemon: { type: Object }
     },
@@ -30,7 +34,8 @@ export default {
 
     data() {
         return {
-            currentIndex: 0
+            currentIndex: 0,
+            url: '/pokemon/' + this.pokemon.id,
         };
     },
     computed: {
