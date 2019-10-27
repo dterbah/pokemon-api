@@ -88,8 +88,20 @@ export default {
                 this.procedingAjaxRequest = true;
                 for (let i = begin; i <= end; i++) {
                     // create the request to retrieve the pokemon
-                    const url = URL.pokemonLink + i;
+                    let url = URL.pokemonLink + i;
                     const requestResult = await axios.get(url);
+                    // create the request to retrieve the spec of the pokemon
+                    url = URL.pokemonSpecLink + i;
+                    const specRequestResult = await axios.get(url);
+                    let pokemonSpecs = specRequestResult.data;
+                    // we take only the spec in english
+                    pokemonSpecs.flavor_text_entries = pokemonSpecs.flavor_text_entries.filter(spec => spec.language.name == "en"); 
+
+                    // load the evolutions of the pokemon
+                    url = URL.pokemonEvolutionChainLink + i;
+                    const evolutionsRequestResult = await axios.get(url);
+                    const evolutions = evolutionsRequestResult.data.chain;
+
                     // create the data for the future pokemon
                     const data = {
                         id: requestResult.data.id,
@@ -99,7 +111,9 @@ export default {
                         ).filter((image, index) => index % 2 == 0),
                         baseExperience: requestResult.data.base_experience,
                         moves: requestResult.data.moves,
-                        heigth: requestResult.data.height
+                        height: requestResult.data.height,
+                        specs: pokemonSpecs,
+                        evolutions: evolutions,
                     };
 
                     const pokemon = new Pokemon(data);

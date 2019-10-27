@@ -7,5 +7,7 @@ export default class Pokemon {
         this.baseExperience = data.baseExperience;
         this.moves = data.moves;
         this.name = data.name;
+        this.specs = data.specs;
+        this.evolutions = data.evolutions;
     }
 }

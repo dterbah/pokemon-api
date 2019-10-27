@@ -12,6 +12,9 @@
                 <li>ID : {{ pokemon.id }}</li>
                 <li>Height : {{ pokemon.height }}</li>
                 <li>Base Experience : {{ pokemon.baseExperience}}</li>
+                <li>Base Happiness : {{ pokemon.specs.base_happiness }}</li>
+                <li>Color : {{ pokemon.specs.color.name }}</li>
+                <li>Capture rate : {{ pokemon.specs.capture_rate }}</li>
             </ul>
         </div>
     </div>
