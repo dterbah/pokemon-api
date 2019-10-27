@@ -13,7 +13,9 @@ const mutations = {
 
 const getters = {
     pokemons: (state) => state.pokemons,
-    pokedex: (state) => state.pokedex,
+    getPokemonsByRange: (state) => (begin, end) => {
+        return state.pokemons.filter(pokemon => pokemon !== undefined && pokemon.id >= begin && pokemon.id <= end);
+    }
 }
 
 const actions = {

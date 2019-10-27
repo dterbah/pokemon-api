@@ -1,85 +1,133 @@
 <template>
-  <div id="app">
-	<app-header></app-header>
-	<div class="container">
-		<loading-spinner v-show="procedingAjaxRequest"></loading-spinner>
-		<pokemon-box-container v-for="(container, index) in containers" :key="index" :pokemons="container"></pokemon-box-container>
-	</div>
-  </div>
+    <div id="app">
+        <app-header></app-header>
+        <div class="container">
+            <loading-spinner v-show="procedingAjaxRequest"></loading-spinner>
+            <pokemon-box-container
+                v-for="(container, index) in displayedPokemon"
+                :key="index"
+                :pokemons="container"
+                v-show="!procedingAjaxRequest"
+            ></pokemon-box-container>
+			<app-paginer :nbrPages="nbrPages" @update-page="updatePage"></app-paginer>
+        </div>
+    </div>
 </template>
 
 <script>
 // store imports
-import pokeStore from './AppStore';
-import Vuex from 'vuex';
+import pokeStore from "./AppStore";
+import Vuex from "vuex";
 
 // ajax imports
-import axios from 'axios';
-import URL from './api/url';
+import axios from "axios";
+import URL from "./api/url";
 
-import Pokemon from './Pokemon'
+import Pokemon from "./Pokemon";
 
 // components imports
-import PokemonBoxContainer from './components/PokemonBoxContainer.vue';
-import LoadingSpinner from './components/LoadingSpinner.vue'
-import AppHeader from './components/AppHeader.vue';
+import PokemonBoxContainer from "./components/PokemonBoxContainer.vue";
+import LoadingSpinner from "./components/LoadingSpinner.vue";
+import AppHeader from "./components/AppHeader.vue";
+import AppPaginer from './components/AppPaginer.vue';
 
 export default {
-	store: pokeStore,
-	components: { PokemonBoxContainer, LoadingSpinner, AppHeader },
-	name: 'app',
-	data () {
-		return {
-			MAX_POKEMON: 12,
+    store: pokeStore,
+    components: { PokemonBoxContainer, LoadingSpinner, AppHeader, AppPaginer },
+    name: "app",
+    data() {
+        return {
+            MAX_POKEMON: 151,
 			POKEMON_BY_ROW: 3,
-			BOXES_BY_PAGE: 3,
-			containers: [],
+			POKEMONS_BY_PAGE: 6,
+            BOXES_BY_PAGE: 3,
 			procedingAjaxRequest: true,
-		}
-	},	
-	computed: {
-		...Vuex.mapGetters([ 'pokemons', 'pokedex' ]),
-	},
-	methods: {
-		...Vuex.mapActions(['addPokemon', 'addPokedex'])
-	},
-
-	async beforeMount () {
-		// load the pokemon of the first generation only
-		let container = [];
-		for(let i = 0; i < this.MAX_POKEMON; i++) {
-			// create the request to retrieve the pokemon
-			const url = URL.pokemonLink + (i + 1);
-			const requestResult = await axios.get(url);
-			// create the data for the future pokemon
-			const data = {
-				id: requestResult.data.id,
-				name: requestResult.data.name,
-				sprites: Object.values(requestResult.data.sprites).filter((image, index) => index % 2 == 0),
-				baseExperience: requestResult.data.base_experience,
-				moves: requestResult.data.moves,
-				heigth: requestResult.data.height
-			};
-
-			const pokemon = new Pokemon(data);
-			this.addPokemon(pokemon);
-			if((i % this.POKEMON_BY_ROW) == 0 && i != 0) {
-				this.containers.push(container);
-				container = [];
+			currentPage: 1,
+        };
+    },
+    computed: {
+		...Vuex.mapGetters(["pokemons", "getPokemonsByRange"]),
+		nbrPages: function () {
+			var nbr = this.MAX_POKEMON / this.POKEMONS_BY_PAGE;
+			if((this.MAX_POKEMON % this.POKEMONS_BY_PAGE) != 0) {
+				nbr++;
 			}
-			container.push(pokemon);
-		}
 
-		this.containers.push(container);
-		this.procedingAjaxRequest = false;
-	}
-}
+			return Math.floor(nbr);
+        },
+        
+        displayedPokemon: function () {
+            const buffer = [];
+            let container = [];
+            const from = ((this.currentPage - 1) * this.POKEMONS_BY_PAGE) + 1;
+            const to = this.currentPage * this.POKEMONS_BY_PAGE;
+            const currentPokemons = this.getPokemonsByRange(from, to);
 
+            if(currentPokemons) {
+                for(let i = 0; i < currentPokemons.length; i++) {
+					const pokemon = currentPokemons[i];
+					if (i % this.POKEMON_BY_ROW == 0 && i != 0) {
+                        buffer.push(container);
+                        container = [];
+                    }
+                    container.push(pokemon);
+				}
+
+				buffer.push(container);
+            }
+
+            return buffer;
+        }
+    },
+    methods: {
+        ...Vuex.mapActions(["addPokemon"]),
+        loadPokemons: async function(begin, end) {
+            // we load dynamically the pokemons
+            const currentPokemons = this.getPokemonsByRange(begin, end);
+            if(!currentPokemons.length) {
+                this.procedingAjaxRequest = true;
+                for (let i = begin; i <= end; i++) {
+                    // create the request to retrieve the pokemon
+                    const url = URL.pokemonLink + i;
+                    const requestResult = await axios.get(url);
+                    // create the data for the future pokemon
+                    const data = {
+                        id: requestResult.data.id,
+                        name: requestResult.data.name,
+                        sprites: Object.values(
+                            requestResult.data.sprites
+                        ).filter((image, index) => index % 2 == 0),
+                        baseExperience: requestResult.data.base_experience,
+                        moves: requestResult.data.moves,
+                        heigth: requestResult.data.height
+                    };
+
+                    const pokemon = new Pokemon(data);
+                    this.addPokemon(pokemon);
+                }
+
+                this.procedingAjaxRequest = false;
+			}
+		}, 
+		updatePage: function (value, event) {
+			this.currentPage = value;
+            if(event) event.preventDefault();
+            const from = ((this.currentPage - 1) * this.POKEMONS_BY_PAGE) + 1; 
+            const to = this.currentPage * this.POKEMONS_BY_PAGE;
+            this.loadPokemons(from, to > this.MAX_POKEMON ? this.MAX_POKEMON : to);
+        },
+    },
+
+    async beforeMount() {
+        // load the pokemon of the first generation only
+        this.loadPokemons(1, this.POKEMONS_BY_PAGE);
+    }
+};
 </script>
 
 <style>
 #app {
-	font-family: 'Avenir', Helvetica, Arial, sans-serif;
-	padding-bottom: 2%;
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    padding-bottom: 2%;
 }
 </style>

@@ -2,8 +2,8 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination d-flex justify-content-center">
       <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true" @click="previousImage">&laquo;</span>
+        <a class="page-link" href="#" aria-label="Previous" @click="previousImage">
+          <span aria-hidden="true">&laquo;</span>
           <span class="sr-only">Previous</span>
         </a>
       </li>
@@ -11,8 +11,8 @@
         <a class="page-link" href="#" @click="(e) => updateIndex(e, index - 1)">{{ index }}</a>
       </li>
       <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true" @click="nextImage">&raquo;</span>
+        <a class="page-link" href="#" aria-label="Next"  @click="nextImage">
+          <span aria-hidden="true">&raquo;</span>
           <span class="sr-only">Next</span>
         </a>
       </li>
