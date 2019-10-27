@@ -45,7 +45,7 @@ export default {
         };
     },
     computed: {
-		...Vuex.mapGetters(["pokemons", "getPokemonsByRange", "getCurrentPage"]),
+		...Vuex.mapGetters(["pokemons", "getPokemonsByRange"]),
 		nbrPages: function () {
 			var nbr = this.MAX_POKEMON / this.POKEMONS_BY_PAGE;
 			if((this.MAX_POKEMON % this.POKEMONS_BY_PAGE) != 0) {
@@ -79,12 +79,11 @@ export default {
         }
     },
     methods: {
-        ...Vuex.mapActions(["addPokemon", "updateStorePage"]),
+        ...Vuex.mapActions(["addPokemon"]),
         loadPokemons: async function(begin, end) {
             // we load dynamically the pokemons
             const currentPokemons = this.getPokemonsByRange(begin, end);
             if(!currentPokemons.length) {
-                console.log("Loading");
                 this.procedingAjaxRequest = true;
                 for (let i = begin; i <= end; i++) {
                     // create the request to retrieve the pokemon
@@ -125,7 +124,6 @@ export default {
 		}, 
 		updatePage: function (value, event) {
             this.currentPage = value;
-            this.updateStorePage(this.currentPage);
             if(event) event.preventDefault();
             const from = ((this.currentPage - 1) * this.POKEMONS_BY_PAGE) + 1; 
             const to = this.currentPage * this.POKEMONS_BY_PAGE;
@@ -135,7 +133,6 @@ export default {
 
     async beforeMount() {
         // load the pokemon of the first generation only
-        this.currentPage = this.getCurrentPage;
         this.loadPokemons(1, this.POKEMONS_BY_PAGE);
     }
 };

@@ -7,7 +7,7 @@ const router = new VueRouter({
             component: require('./components/MainView.vue').default,
             name: 'main-view',
             children: [{
-                path: '',
+                path: '*',
                 component: require('./components/AppHeader.vue').default
             }]
         },

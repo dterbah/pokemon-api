@@ -3,16 +3,12 @@ import Vuex from 'vuex';
 // correspond au data
 const state = {
     pokemons: [],
-    currentPage: 1,
 }
 
 const mutations = {
     ADD_POKEMON: (state, pokemon) => {
         state.pokemons.push(pokemon);
     },
-    UPDATE_PAGE: (state, page) => {
-        state.currentPage = page;
-    }
 }
 
 const getters = {
@@ -26,16 +22,12 @@ const getters = {
     getPokemonByName: (state) => (value) => {
         return state.pokemons.filter(pokemon => pokemon.name === value)[0];
     },
-    getCurrentPage: (state) => state.currentPage,
 }
 
 const actions = {
     addPokemon: (store, pokemon) => {
         store.commit('ADD_POKEMON', pokemon);
     },
-    updateStorePage: (store, page) => {
-        store.commit('UPDATE_PAGE', page);
-    }
 }
 
 const store =  new Vuex.Store({
