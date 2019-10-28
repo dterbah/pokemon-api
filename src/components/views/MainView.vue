@@ -2,6 +2,17 @@
     <div>
         <router-view></router-view>
         <app-header></app-header>
+        <div class="generations-selection">
+            <select class="form-control form-control-lg w-25 container" @change="updateGeneration($event)">
+                <option 
+                    v-for="(generation, index) in allGenerations"
+                    :key="index"
+                    :value="index + 1"
+                    >
+                    Generation {{ index + 1 }}
+                </option>
+            </select>
+        </div>
         <div class="container">
             <loading-spinner v-show="procedingAjaxRequest"></loading-spinner>
             <pokemon-box-container
@@ -28,6 +39,8 @@ import LoadingSpinner from './../util/LoadingSpinner.vue';
 import AppPaginer from './../paginer/AppPaginer.vue';
 import AppHeader from './../AppHeader.vue';
 
+import {generations} from './../../data/Generations.js';
+
 export default {
     components: { PokemonBoxContainer, LoadingSpinner, AppPaginer, AppHeader },
     name: "MainView",
@@ -38,25 +51,27 @@ export default {
 			POKEMONS_BY_PAGE: 6,
             BOXES_BY_PAGE: 3,
 			procedingAjaxRequest: false,
-			currentPage: 1,
+            currentPage: 1,
+            currentGenerationIndex: 1,
+            allGenerations: generations,
         };
     },
     computed: {
 		...Vuex.mapGetters(["pokemons", "getPokemonsByRange"]),
 		nbrPages: function () {
-			var nbr = this.MAX_POKEMON / this.POKEMONS_BY_PAGE;
+            const totalPokemon = this.currentGeneration.to - this.currentGeneration.from;
+			var nbr = totalPokemon / this.POKEMONS_BY_PAGE;
 			if((this.MAX_POKEMON % this.POKEMONS_BY_PAGE) != 0) {
 				nbr++;
 			}
 
 			return Math.floor(nbr);
         },
-        
         displayedPokemon: function () {
             const buffer = [];
             let container = [];
-            const from = ((this.currentPage - 1) * this.POKEMONS_BY_PAGE) + 1;
-            const to = this.currentPage * this.POKEMONS_BY_PAGE;
+            const from = this.currentGeneration.from + ((this.currentPage - 1) * this.POKEMONS_BY_PAGE);
+            const to = this.currentGeneration.from + (this.currentPage * this.POKEMONS_BY_PAGE) - 1;
             const currentPokemons = this.getPokemonsByRange(from, to);
 
             if(currentPokemons) {
@@ -73,6 +88,9 @@ export default {
             }
 
             return buffer;
+        },
+        currentGeneration: function () {
+            return this.allGenerations[this.currentGenerationIndex - 1];
         }
     },
     methods: {
@@ -92,15 +110,29 @@ export default {
 		updatePage: function (value, event) {
             this.currentPage = value;
             if(event) event.preventDefault();
-            const from = ((this.currentPage - 1) * this.POKEMONS_BY_PAGE) + 1; 
-            const to = this.currentPage * this.POKEMONS_BY_PAGE;
-            this.loadPokemons(from, to > this.MAX_POKEMON ? this.MAX_POKEMON : to);
+            const from = this.currentGeneration.from + ((this.currentPage - 1) * this.POKEMONS_BY_PAGE);
+            const to = this.currentGeneration.from + (this.currentPage * this.POKEMONS_BY_PAGE) - 1;
+            this.loadPokemons(from, to > this.currentGeneration.to ? this.currentGeneration.to : to);
         },
+        updateGeneration: function(event) {
+            const select = event.target;
+            const currentOption = select[select.selectedIndex];
+            const $currentGenerationIndex = parseInt(currentOption.value);
+            this.currentGenerationIndex = $currentGenerationIndex;
+            this.loadPokemons(this.currentGeneration.from, this.currentGeneration.from + this.POKEMONS_BY_PAGE);
+        }
     },
 
     async beforeMount() {
         // load the pokemon of the first generation only
-        this.loadPokemons(1, this.POKEMONS_BY_PAGE);
+        this.loadPokemons(this.currentGeneration.from, this.currentGeneration.from + this.POKEMONS_BY_PAGE);
     }
 };
 </script>
+
+<style>
+    .generations-selection {
+        padding-bottom: 1%;
+    }
+
+</style>

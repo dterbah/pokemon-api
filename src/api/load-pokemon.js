@@ -18,9 +18,12 @@ const pokemonLoader = async (pokemonId) => {
     // we take only the spec in english
     pokemonSpecs.flavor_text_entries = pokemonSpecs.flavor_text_entries.filter(spec => spec.language.name == "en");
     // load the evolutions of the pokemon
-    url = URL.pokemonEvolutionChainLink + pokemonId;
-    const evolutionsRequestResult = await axios.get(url);
-    const evolutions = evolutionsRequestResult.data.chain;
+    let evolutions = undefined;
+    if(pokemonSpecs.evolution_chain && pokemonSpecs.evolution_chain.url) {
+        url = pokemonSpecs.evolution_chain.url;
+        const evolutionsRequestResult = await axios.get(url);
+        evolutions = evolutionsRequestResult.data.chain;
+    }
 
     // create the data for the future pokemon
     const data = {
@@ -32,14 +35,26 @@ const pokemonLoader = async (pokemonId) => {
         baseExperience: requestResult.data.base_experience,
         height: requestResult.data.height,
         specs: {
-            color: pokemonSpecs.color.name,
+            color: pokemonSpecs.color ? pokemonSpecs.color.name : "not defined",
             pokedexResumes: pokemonSpecs.flavor_text_entries.map(entry => {
                 return {
                     text: entry.flavor_text,
                     version: entry.version.name
                 };
             }),
-            habitat: pokemonSpecs.habitat.name
+            types: {
+                ...requestResult.data.types.map(element => element.type.name)
+            },
+            stats: {
+                ...requestResult.data.stats.map(stat => {
+                    return {
+                        baseStat: stat.base_stat,
+                        effort: stat.effort,
+                        name: stat.stat.name
+                    }
+                })
+            },
+            habitat: pokemonSpecs.habitat ? pokemonSpecs.habitat.name : 'not defined'
         },
         evolutions: evolutions,
     };
