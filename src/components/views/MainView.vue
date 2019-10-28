@@ -20,13 +20,13 @@
 import Vuex from "vuex";
 
 // ajax imports
-import pokemonLoader from './../api/load-pokemon.js';
+import pokemonLoader from './../../api/load-pokemon.js';
 
 // components imports
-import PokemonBoxContainer from "./PokemonBoxContainer.vue";
-import LoadingSpinner from "./LoadingSpinner.vue";
-import AppPaginer from './AppPaginer.vue';
-import AppHeader from './AppHeader.vue';
+import PokemonBoxContainer from "./../PokemonBoxContainer.vue";
+import LoadingSpinner from './../util/LoadingSpinner.vue';
+import AppPaginer from './../paginer/AppPaginer.vue';
+import AppHeader from './../AppHeader.vue';
 
 export default {
     components: { PokemonBoxContainer, LoadingSpinner, AppPaginer, AppHeader },
@@ -79,16 +79,15 @@ export default {
         ...Vuex.mapActions(["addPokemon"]),
         loadPokemons: async function(begin, end) {
             // we load dynamically the pokemons
-            const currentPokemons = this.getPokemonsByRange(begin, end);
-            if(!currentPokemons.length) {
-                this.procedingAjaxRequest = true;
-                for (let i = begin; i <= end; i++) {
-                    const pokemon = await pokemonLoader(i);
+            this.procedingAjaxRequest = true;
+            for (let i = begin; i <= end; i++) {
+                const pokemon = await pokemonLoader(i);
+                if(pokemon) {
                     this.addPokemon(pokemon);
                 }
+            }
 
-                this.procedingAjaxRequest = false;
-			}
+            this.procedingAjaxRequest = false;
 		}, 
 		updatePage: function (value, event) {
             this.currentPage = value;

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import PokemonBoxPaginer from "./PokemonBoxPaginer.vue";
+import PokemonBoxPaginer from "./paginer/PokemonBoxPaginer.vue";
 export default {
     name: 'PokemonBox',
     props: {

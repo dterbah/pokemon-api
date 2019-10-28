@@ -5,11 +5,9 @@ import pokeStore from '../data/AppStore.js';
 import URL from './url.js'
 
 // function that load a pokemon by its id
-const loadPokemon = async (pokemonId) => {
+const pokemonLoader = async (pokemonId) => {
     let result = pokeStore.getters.getPokemonById(pokemonId);
-    if(result) {
-        return result;
-    }
+    if(result) return undefined;
 
     let url = URL.pokemonLink + pokemonId;
     const requestResult = await axios.get(url);
@@ -47,7 +45,7 @@ const loadPokemon = async (pokemonId) => {
     };
 
     const pokemon = new Pokemon(data);
-    return pokemon
+    return pokemon;
 }
 
-export default loadPokemon;
+export default pokemonLoader;
