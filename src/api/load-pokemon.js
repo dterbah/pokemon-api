@@ -42,18 +42,17 @@ const pokemonLoader = async (pokemonId) => {
                     version: entry.version.name
                 };
             }),
-            types: {
-                ...requestResult.data.types.map(element => element.type.name)
-            },
-            stats: {
-                ...requestResult.data.stats.map(stat => {
-                    return {
-                        baseStat: stat.base_stat,
-                        effort: stat.effort,
-                        name: stat.stat.name
-                    }
-                })
-            },
+            baseHappiness: pokemonSpecs.base_happiness,
+            abilities: requestResult.data.abilities.map(element => element.ability.name),
+            types: requestResult.data.types.map(element => element.type.name),
+            stats: requestResult.data.stats.map(stat => {
+                return {
+                    baseStat: stat.base_stat,
+                    effort: stat.effort,
+                    name: stat.stat.name
+                }
+            }),
+            captureRate: pokemonSpecs.capture_rate,
             habitat: pokemonSpecs.habitat ? pokemonSpecs.habitat.name : 'not defined'
         },
         evolutions: evolutions,

@@ -12,9 +12,9 @@
                 <li>ID : {{ pokemon.id }}</li>
                 <li>Height : {{ pokemon.height }}</li>
                 <li>Base Experience : {{ pokemon.baseExperience}}</li>
-                <li>Base Happiness : {{ pokemon.specs.base_happiness }}</li>
-                <li>Color : {{ pokemon.specs.color.name }}</li>
-                <li>Capture rate : {{ pokemon.specs.capture_rate }}</li>
+                <li>Base Happiness : {{ pokemon.specs.baseHappiness }}</li>
+                <li>Color : {{ pokemon.specs.color }}</li>
+                <li>Capture rate : {{ pokemon.specs.captureRate }}</li>
                 <li>More details <router-link :to="{name: 'pokemon-view', params: { pokemonId: pokemon.id } }">
                     here
                 </router-link></li>
