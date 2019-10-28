@@ -7,6 +7,6 @@ Vue.use(VueRouter);
 
 new Vue({
   el: '#app',
-  router: require('./router.js').default,
+  router: require('./routes/router.js').default,
   render: h => h(require('./App.vue').default)
 })

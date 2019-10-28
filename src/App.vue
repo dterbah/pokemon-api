@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import pokeStore from './AppStore.js';
+    import pokeStore from './data/AppStore.js';
     export default { 
         store: pokeStore,
         name: 'app'

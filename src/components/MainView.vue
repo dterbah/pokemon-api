@@ -20,10 +20,7 @@
 import Vuex from "vuex";
 
 // ajax imports
-import axios from "axios";
-import URL from "./../api/url";
-
-import Pokemon from "./../Pokemon";
+import pokemonLoader from './../api/load-pokemon.js';
 
 // components imports
 import PokemonBoxContainer from "./PokemonBoxContainer.vue";
@@ -86,36 +83,7 @@ export default {
             if(!currentPokemons.length) {
                 this.procedingAjaxRequest = true;
                 for (let i = begin; i <= end; i++) {
-                    // create the request to retrieve the pokemon
-                    let url = URL.pokemonLink + i;
-                    const requestResult = await axios.get(url);
-                    // create the request to retrieve the spec of the pokemon
-                    url = URL.pokemonSpecLink + i;
-                    const specRequestResult = await axios.get(url);
-                    let pokemonSpecs = specRequestResult.data;
-                    // we take only the spec in english
-                    pokemonSpecs.flavor_text_entries = pokemonSpecs.flavor_text_entries.filter(spec => spec.language.name == "en"); 
-
-                    // load the evolutions of the pokemon
-                    url = URL.pokemonEvolutionChainLink + i;
-                    const evolutionsRequestResult = await axios.get(url);
-                    const evolutions = evolutionsRequestResult.data.chain;
-
-                    // create the data for the future pokemon
-                    const data = {
-                        id: requestResult.data.id,
-                        name: requestResult.data.name,
-                        sprites: Object.values(
-                            requestResult.data.sprites
-                        ).filter((image, index) => index % 2 == 0),
-                        baseExperience: requestResult.data.base_experience,
-                        moves: requestResult.data.moves,
-                        height: requestResult.data.height,
-                        specs: pokemonSpecs,
-                        evolutions: evolutions,
-                    };
-
-                    const pokemon = new Pokemon(data);
+                    const pokemon = await pokemonLoader(i);
                     this.addPokemon(pokemon);
                 }
 
