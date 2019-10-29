@@ -24,6 +24,15 @@ const getters = {
     getPokemonByName: (state) => (value) => {
         return state.pokemons.filter(pokemon => pokemon.name === value)[0];
     },
+    getMaxStatByName: (state) => (statName) => {
+        const buffer = [];
+        state.pokemons.forEach(pokemon => {
+            buffer.push(...pokemon.specs.stats.filter(stat => stat.name == statName).map(stat => stat.baseStat));
+        });
+
+
+        return Math.max(...buffer);
+    },
 }
 
 const actions = {

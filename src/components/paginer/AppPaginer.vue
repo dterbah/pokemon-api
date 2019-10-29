@@ -8,7 +8,7 @@
         </a>
       </li>
       <li class="page-item" v-for="index in nbrPages" :key="index">
-        <a class="page-link" href="#" @click="(e) => to(e, index)">{{ index }}</a>
+        <a class="page-link" :class="{active: index == currentPage}" href="#" @click="(e) => to(e, index)">{{ index }}</a>
       </li>
       <li class="page-item">
         <a class="page-link" href="#" aria-label="Next" @click="nextPage">
@@ -63,6 +63,10 @@
 
     #app-paginer {
         margin-top: 2%;
+    }
+
+    .active {
+      background-color: yellow;
     }
 
 </style>

@@ -133,6 +133,7 @@ export default {
 <style>
     .generations-selection {
         padding-bottom: 1%;
+        margin-top: 2%;
     }
 
 </style>

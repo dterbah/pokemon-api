@@ -28,13 +28,13 @@ import PokemonBoxPaginer from "./paginer/PokemonBoxPaginer.vue";
 export default {
     name: 'PokemonBox',
     props: {
-        pokemon: { type: Object }
+        pokemon: Object
     },
     components: { PokemonBoxPaginer },
 
     data() {
         return {
-            currentIndex: 0,
+            currentIndex: 2,
             url: '/pokemon/' + this.pokemon.id,
         };
     },

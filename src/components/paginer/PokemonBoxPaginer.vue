@@ -8,7 +8,7 @@
         </a>
       </li>
       <li class="page-item" v-for="index in nbrImages" :key="index">
-        <a class="page-link" href="#" @click="(e) => updateIndex(e, index - 1)">{{ index }}</a>
+        <a class="page-link" :class="{active : currentIndex == index - 1}" href="#" @click="(e) => updateIndex(e, index - 1)">{{ index }}</a>
       </li>
       <li class="page-item">
         <a class="page-link" href="#" aria-label="Next"  @click="nextImage">
@@ -28,7 +28,7 @@
         },  
         data () {
             return {
-                currentIndex: 0,
+                currentIndex: 2,
             };
         },
         methods: {
@@ -56,3 +56,11 @@
     }
 
 </script>
+
+<style>
+
+  .active {
+      background-color: yellow;
+  }
+
+</style>
