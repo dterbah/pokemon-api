@@ -71,7 +71,8 @@ export default {
             const buffer = [];
             let container = [];
             const from = this.currentGeneration.from + ((this.currentPage - 1) * this.POKEMONS_BY_PAGE);
-            const to = this.currentGeneration.from + (this.currentPage * this.POKEMONS_BY_PAGE) - 1;
+            let to = this.currentGeneration.from + (this.currentPage * this.POKEMONS_BY_PAGE) - 1;
+            to = to > this.currentGeneration.to ? this.currentGeneration.to : to;
             const currentPokemons = this.getPokemonsByRange(from, to);
 
             if(currentPokemons) {
@@ -119,6 +120,7 @@ export default {
             const currentOption = select[select.selectedIndex];
             const $currentGenerationIndex = parseInt(currentOption.value);
             this.currentGenerationIndex = $currentGenerationIndex;
+            this.currentPage = 1;
             this.loadPokemons(this.currentGeneration.from, this.currentGeneration.from + this.POKEMONS_BY_PAGE);
         }
     },
