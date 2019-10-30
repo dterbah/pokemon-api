@@ -1,6 +1,6 @@
 <template>
     <div class="stats">
-        <div class="w-100">
+        <div class="w-100 vertical-center">
             <apexchart type="radar" :options="chartOptions" :series="series"></apexchart>
         </div>
     </div>
@@ -8,7 +8,6 @@
 
 <script>
     import Vuex from 'vuex';
-
 
     export default {
         name: 'PokemonStat',
@@ -61,3 +60,11 @@
     }
 
 </script>
+
+<style>
+
+.vertical-center {
+    position: relative;
+    top: 10%;
+}
+</style>

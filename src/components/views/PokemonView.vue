@@ -24,10 +24,10 @@
         },
         computed: {
             ...Vuex.mapGetters(["getPokemonById"]),
-            pokemon: function () {
-                return this.getPokemonById(this.pokemonId);
-            }
         },
+        created () {
+            this.pokemon = this.getPokemonById(this.pokemonId);
+        }
     };
 
 </script>

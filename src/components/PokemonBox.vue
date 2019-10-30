@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <ul class="list card-text">
-                <li>Name : {{ capitalizedName }}</li>
+                <li>Name : {{ pokemon.name.firstLetterToUpper() }}</li>
                 <li>ID : {{ pokemon.id }}</li>
                 <li>Height : {{ pokemon.height }}</li>
                 <li>Base Experience : {{ pokemon.baseExperience}}</li>
@@ -42,12 +42,6 @@ export default {
         currentImage: function() {
             // return this.sprites[this.currentIndex];
             return this.sprites[this.currentIndex];
-        },
-        capitalizedName: function() {
-            return (
-                this.pokemon.name.charAt(0).toUpperCase() +
-                this.pokemon.name.slice(1)
-            );
         },
         sprites: function() {
             return this.pokemon.sprites;
