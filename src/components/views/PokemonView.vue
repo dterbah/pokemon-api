@@ -11,8 +11,8 @@
 <script>
     import Vuex from 'vuex';
     import AppHeader from './../AppHeader.vue';
-    import PokemonDescription from './../PokemonDescription.vue';
-    import PokemonStat from './../PokemonStat.vue';
+    import PokemonDescription from './stats/PokemonDescription.vue';
+    import PokemonStat from './stats/PokemonStat.vue';
 
     export default {
         name: 'PokemonView',
