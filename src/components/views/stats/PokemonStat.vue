@@ -1,7 +1,7 @@
 <template>
     <div class="stats">
         <div class="w-100 vertical-center">
-            <apexchart type="radar" :options="chartOptions" :series="series"></apexchart>
+            <apexchart class="w-100" type="radar" :options="chartOptions" :series="series"></apexchart>
         </div>
     </div>
 </template>
