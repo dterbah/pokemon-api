@@ -5,6 +5,7 @@
             <pokemon-description class="pokemon-description" :pokemon="pokemon"></pokemon-description>
             <pokemon-stat class="pokemon-stats" :stats="pokemon.specs.stats" :name="pokemon.name"></pokemon-stat>
         </div>
+        <pokedex-view :pokedexResumes="pokemon.specs.pokedexResumes"></pokedex-view>
     </div>
 </template>
 
@@ -13,10 +14,11 @@
     import AppHeader from './../AppHeader.vue';
     import PokemonDescription from './stats/PokemonDescription.vue';
     import PokemonStat from './stats/PokemonStat.vue';
+    import PokedexView from './PokedexView.vue';
 
     export default {
         name: 'PokemonView',
-        components: { AppHeader, PokemonDescription, PokemonStat },
+        components: { AppHeader, PokemonDescription, PokemonStat, PokedexView },
         data () {
             return {
                 pokemonId: parseInt(this.$route.params.pokemonId),
