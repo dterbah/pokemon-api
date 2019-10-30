@@ -4,7 +4,7 @@
             <img class="card-img-center" :src="currentPokemon.sprites[2]"/>
         </div>
         <div class="description">
-            <pokemon-stat-table :stats="pokemon.specs.stats"></pokemon-stat-table>
+            <pokemon-stat-table :stats="pokemon.specs.stats" :abilities="pokemon.specs.abilities"></pokemon-stat-table>
         </div>
     </div>
 </template>

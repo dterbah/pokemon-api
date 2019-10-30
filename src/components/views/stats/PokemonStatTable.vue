@@ -24,6 +24,18 @@
                     </th>
                     <th scope="col">{{ totalStats }}</th>
                 </tr>
+                <tr>
+                    <th scope="col">
+                        <i class="fas fa-brain"></i>
+                        Abilities
+                    </th>
+                    <th scope="col">
+                        <span v-for="(ability, index) in currentAbilities"
+                            :key="index"
+                        > {{ ability.firstLetterToUpper() }}<span v-if="currentAbilities.length > 1 && index < currentAbilities.length - 1">,</span>
+                        </span>
+                    </th>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -35,11 +47,13 @@
     export default {
         name: 'PokemonStatTable',
         props: {
-            stats: Array
+            stats: Array,
+            abilities: Array
         },
         data () {
             return {
                 currentStats: this.$props.stats,
+                currentAbilities: this.$props.abilities,
                 statsIcons: statIcons
             }
         },
