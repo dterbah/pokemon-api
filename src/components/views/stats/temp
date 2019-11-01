@@ -1,0 +1,60 @@
+<template>
+    <div class="d-flex justify-content-center">
+        <!-- loop on the first deep -->
+        <div
+        v-for="(evolutionDetails, index) in evolutions"
+        :key="index"
+        >
+            Pokemon {{ evolutionDetails.species.name }}<br>
+            Evolves at the level {{ evolutionDetails.details.min_level }}
+            <img :src="currentSprite"/>
+            <pokemon-node
+                v-if="evolutionDetails.evolves_to.length"
+                :details="evolutionDetails"
+                >
+            </pokemon-node>
+        </div>
+    </div>
+</template>
+
+<script>
+
+    import Vuex from 'vuex';
+    import PokemonNode from './PokemonNode.vue';
+
+    export default {
+        components: { PokemonNode },
+        name: 'PokemonNode',
+        props: {
+            details: [ Object, Array ]
+        },
+        data () {
+            return {
+                currentDetails: this.$props.details,
+                spriteIndex: 2
+            }
+        },
+        computed: {
+            ...Vuex.mapGetters(["getPokemonByName"]),
+            pokemon: function () {
+                return this.getPokemonByName(this.currentDetails.species.name)
+            },
+            evolutions: function () {
+                return this.currentDetails.evolves_to.map(evo => {
+                    return {
+                        details: evo.evolution_details[0],
+                        evolves_to: evo.evolves_to,
+                        species: evo.species,
+                    }
+                })
+            },
+            currentSprite: function () {
+                return this.pokemon.sprites[this.spriteIndex];
+            }
+        },
+        created () {
+            console.log(this.currentDetails); 
+        }
+    }
+
+</script>

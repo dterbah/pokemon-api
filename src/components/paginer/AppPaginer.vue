@@ -7,7 +7,7 @@
           <span class="sr-only">Previous</span>
         </a>
       </li>
-      <li class="page-item" v-for="index in nbrPages" :key="index">
+      <li class="page-item text-dark" v-for="index in nbrPages" :key="index">
         <a class="page-link" :class="{active: index == currentPage}" href="#" @click="(e) => to(e, index)">{{ index }}</a>
       </li>
       <li class="page-item">
@@ -66,7 +66,7 @@
     }
 
     .active {
-      background-color: yellow;
+      background-color: black;
     }
 
 </style>

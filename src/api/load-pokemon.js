@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import Pokemon from './../data/Pokemon.js'
 import pokeStore from '../data/AppStore.js';
+import Pokemon from './../data/Pokemon';
 import URL from './url.js'
 
 // function that load a pokemon by its id
