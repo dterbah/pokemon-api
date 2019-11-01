@@ -7,6 +7,7 @@
         </div>
         <pokedex-view :pokedexResumes="pokemon.specs.pokedexResumes"></pokedex-view>
         <pokemon-evolution :pokemon="pokemon"></pokemon-evolution>
+        <pokemon-forms :pokemon="pokemon"></pokemon-forms>
     </div>
 </template>
 
@@ -17,10 +18,11 @@
     import PokemonStat from './stats/PokemonStat.vue';
     import PokedexView from './stats/PokedexView.vue';
     import PokemonEvolution from './stats/PokemonEvolution.vue';
+    import PokemonForms from './stats/PokemonForms.vue';
 
     export default {
         name: 'PokemonView',
-        components: { AppHeader, PokemonDescription, PokemonStat, PokedexView, PokemonEvolution },
+        components: { AppHeader, PokemonDescription, PokemonStat, PokedexView, PokemonEvolution, PokemonForms },
         data () {
             return {
                 pokemonId: parseInt(this.$route.params.pokemonId),

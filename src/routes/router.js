@@ -16,6 +16,11 @@ const router = new VueRouter({
             beforeEnter: storeMiddleware            
         },
         {
+            path: '/pokemon/compare',
+            component: require('./../components/views/compare/ComparePokemonView.vue').default,
+            name: 'pokemon-compare'
+        },
+        {
             path: '*',
             redirect: '/'
         }

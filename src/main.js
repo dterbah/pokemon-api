@@ -1,8 +1,14 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex';
-import VueRouter from 'vue-router'
-import VueApexCharts from 'vue-apexcharts';
 
+import VueApexCharts from 'vue-apexcharts';
+import BootstrapVue from 'bootstrap-vue'
+import VueRouter from 'vue-router'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(BootstrapVue);
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VueApexCharts);

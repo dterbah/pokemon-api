@@ -10,6 +10,8 @@
   "dependencies": {
     "apexcharts": "^3.10.1",
     "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.4",
     "core-js": "^3.3.2",
     "rpg-awesome": "^0.2.0",
     "vue": "^2.6.10",

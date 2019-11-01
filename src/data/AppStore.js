@@ -23,7 +23,6 @@ const getters = {
     },
     getPokemonByName: (state) => (value) => {
         const result = state.pokemons.filter(pokemon => pokemon.name === value);
-        console.log(result[0].name);
         return result.length ? result[0] : undefined;
     },
     getMaxStatByName: (state) => (statName) => {

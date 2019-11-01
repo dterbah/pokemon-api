@@ -1,7 +1,11 @@
 <template>
     <div class="text-center">
         <!-- loop on the first deep -->
-        Name of the pokemon : {{ currentName.firstLetterToUpper() }}
+        Name of the pokemon : {{ currentName.firstLetterToUpper() }}<br>
+        More details 
+             <a :href="$router.resolve({name: 'pokemon-view', params: { pokemonId: pokemon.id } }).href">
+                here
+             </a><br/>
         <img :src="currentSprite" class="pokemon-img"/>
         <div
             v-for="(evo, index) in evolutions"
