@@ -18,15 +18,15 @@
                 text-field="name"
                 disabled-field="notEnabled"
             ></b-form-select>
-            <button type="button" class="btn btn-primary" @click="compare">Primary</button>
+            <button v-if="!showed" type="button" class="btn btn-primary" @click="compare">Compare</button>
         </div>
-        <compare-pokemon-container v-if="showed" :firstPokemonIndex="firstPokemonSelected" :secondPokemonIndex="secondPokemonSelected"></compare-pokemon-container>
+        <compare-pokemon-container v-if="showed" :firstPokemonIndex="firstPokemonSelected" :secondPokemonIndex="secondPokemonSelected"></compare-pokemon-container> 
     </div>
 </template>
 
 <script>
 
-    import ComparePokemonContainer from './ComparePokemonContainer.vue'
+    import ComparePokemonContainer from './ComparePokemonContainer.vue';
     import AppHeader from './../../AppHeader.vue';
     import Vuex from 'vuex';
 
