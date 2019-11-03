@@ -7,15 +7,11 @@
                 :series="chartConfig.series"
             ></apexchart>
         </div>
-        <div class="d-flex justify-content-center">
-            <compare-pokemon-chart
-                v-for="(stat, index) in stats"
-                :key="index"
+        <div>
+            <compare-pokemon-table
                 :pokemons="[firstPokemon, secondPokemon]"
-                :statName="stat"
-                class="chart"
             >
-            </compare-pokemon-chart>
+            </compare-pokemon-table>
         </div>
         
     </div>
@@ -24,11 +20,11 @@
 <script>
 
     import Vuex from 'vuex';
-    import ComparePokemonChart from './ComparePokemonChart.vue';
+    import ComparePokemonTable from './ComparePokemonTable.vue';
 
     export default {
         name: 'ComparePokemonContainer',
-        components: { ComparePokemonChart },
+        components: { ComparePokemonTable },
         props: {
             firstPokemonIndex: Number,
             secondPokemonIndex: Number
@@ -40,9 +36,6 @@
             },
             secondPokemon: function () {
                 return this.getPokemonById(this.secondPokemonIndex);
-            },
-            stats: function () {
-                return this.firstPokemon.specs.stats.map(stat => stat.name).slice(0, 3);
             },
             chartConfig: function () {
                 return {
