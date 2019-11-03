@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <div class="text-center" v-if="pokemon">
         <!-- loop on the first deep -->
         Name of the pokemon : {{ currentName.firstLetterToUpper() }}<br>
         More details 
@@ -22,6 +22,7 @@
 
     import Vuex from 'vuex';
     import PokemonNode from './PokemonNode.vue';
+    import pokemonLoader from './../../../api/load-pokemon.js';
 
     export default {
         name: 'PokemonNode',
@@ -48,16 +49,21 @@
                         species: evo.species,
                     }
                 })
-            }, 
+            },
+        },
+        asyncComputed: {
             pokemon: function () {
-                return this.getPokemonByName(this.currentName);
+                let result = this.getPokemonByName(this.currentName);
+                if(!result) {
+                    result = pokemonLoader(this.currentName);
+                }
+
+                return result;
             },
             currentSprite: function () {
-                return this.pokemon.sprites[this.spriteIndex];
+                return (this.pokemon) ? this.pokemon.sprites[this.spriteIndex] : undefined;
             }
         },
-        created () {
-        }
     }
 
 </script>

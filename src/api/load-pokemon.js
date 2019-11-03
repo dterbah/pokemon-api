@@ -6,7 +6,7 @@ import URL from './url.js'
 
 // function that load a pokemon by its id
 const pokemonLoader = async (pokemonId) => {
-    let result = pokeStore.getters.getPokemonById(pokemonId);
+    let result = pokeStore.getters.getPokemonById(pokemonId) || pokeStore.getters.getPokemonByName(pokemonId);
     if(result) return undefined;
 
     let url = URL.pokemonLink + pokemonId;
