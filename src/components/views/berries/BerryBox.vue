@@ -28,7 +28,7 @@
                 return this.$props.berry;
             },
             spriteLink: function () {
-                return require("@/assets/images/berries/" + this.currentBerry.sprite)
+                return require("@/assets/images/berries/" + this.currentBerry.sprite);
             }
         },
         created () {

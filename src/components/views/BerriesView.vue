@@ -1,6 +1,6 @@
 <template>
     <div>
-        <app-header></app-header>
+        <app-header title="Berries API"></app-header>
         <div class="container">
             <h5 class="text-center">Berries view</h5>
             <berries-container

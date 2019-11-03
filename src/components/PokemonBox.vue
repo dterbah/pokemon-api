@@ -1,9 +1,9 @@
 <template>
-    <div class="card col box" style="width: 18rem;">
+    <div class="card col box">
         <pokemon-box-paginer @update-index="updateIndex" :nbrImages="spritesLength"></pokemon-box-paginer>
         <div class="img-container border-bottom border-dark">
             <transition name="fade">
-                <img :src="currentImage" class="card-img-top" />
+                <img :src="currentImage" class="card-img-top w-75" />
             </transition>
         </div>
         <div class="card-body">

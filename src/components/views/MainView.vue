@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-view></router-view>
-        <app-header></app-header>
+        <app-header title="Pokemon API"></app-header>
         <div class="generations-selection">
             <select class="form-control form-control-lg w-25 container" @change="updateGeneration($event)">
                 <option 

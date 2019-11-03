@@ -18,23 +18,23 @@
                     <th scope="col">{{ currentStat.baseStat }}</th>
                 </tr>
                 <tr>
-                    <th scope="col">
+                    <td>
                         <i class="fas fa-poll"></i>
                         Total of stats
-                    </th>
-                    <th scope="col">{{ totalStats }}</th>
+                    </td>
+                    <td scope="col">{{ totalStats }}</td>
                 </tr>
                 <tr>
-                    <th scope="col">
+                    <td>
                         <i class="fas fa-brain"></i>
                         Abilities
-                    </th>
-                    <th scope="col">
+                    </td>
+                    <td>
                         <span v-for="(ability, index) in currentAbilities"
                             :key="index"
                         > {{ ability.firstLetterToUpper() }}<span v-if="currentAbilities.length > 1 && index < currentAbilities.length - 1">,</span>
                         </span>
-                    </th>
+                    </td>
                 </tr>
             </tbody>
         </table>

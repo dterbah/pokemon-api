@@ -3,5 +3,5 @@ String.prototype.firstLetterToUpper = function () {
 }
 
 String.prototype.sanitize = function () {
-    return this.replace("-", " ");
+    return this.replace("-", " ").replace("_", "");
 }

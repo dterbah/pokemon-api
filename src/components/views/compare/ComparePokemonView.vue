@@ -1,6 +1,6 @@
 <template>
     <div>
-        <app-header></app-header>
+        <app-header title="Comparaison of pokemons"></app-header>
         <div class="comparer d-flex justify-content-center">
              <b-form-select
                 v-model="firstPokemonSelected"

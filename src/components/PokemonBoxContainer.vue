@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <pokemon-box v-for="(pokemon, index) in pokemons" :key="index" :pokemon="pokemon"></pokemon-box>
+        <pokemon-box class="w-25" v-for="(pokemon, index) in pokemons" :key="index" :pokemon="pokemon"></pokemon-box>
     </div>
 </template>
 
