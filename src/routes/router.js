@@ -21,6 +21,11 @@ const router = new VueRouter({
             name: 'pokemon-compare'
         },
         {
+            path: '/berries/',
+            component: require('./../components/views/BerriesView.vue').default,
+            name: "berries-view"
+        },
+        {
             path: '*',
             redirect: '/'
         }

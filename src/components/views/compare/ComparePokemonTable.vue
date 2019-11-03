@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h5 class="text-center">Ranking by stat</h5>
         <table class="table w-50 stat-table text-center">
             <thead class="thead-dark">
                 <tr>
