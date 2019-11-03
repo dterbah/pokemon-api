@@ -26,6 +26,11 @@ const router = new VueRouter({
             name: "berries-view"
         },
         {
+            path: '/berries/:berryId(\\d+)',
+            component: require('./../components/views/berries/BerryView.vue').default,
+            name: 'berry-view'
+        },
+        {
             path: '*',
             redirect: '/'
         }

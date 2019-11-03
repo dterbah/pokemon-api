@@ -10,9 +10,7 @@
     export default {
         components: { PokemonBox },
         props: {
-            pokemons: { 
-                type: Array
-            }
+            pokemons: Array
         },
 
         mounted() {

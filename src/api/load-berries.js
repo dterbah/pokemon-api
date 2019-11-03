@@ -36,7 +36,7 @@ const berryLoader = async (berryId) => {
                 }
             }),
         },
-        sprite: URL.berrySprite + berryRequestData.item.name + '.png',
+        sprite: berryRequestData.item.name + '.png',
     }
 
     const berry = new Berry(data);

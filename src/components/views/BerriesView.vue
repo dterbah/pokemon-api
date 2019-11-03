@@ -2,6 +2,7 @@
     <div>
         <app-header></app-header>
         <div class="container">
+            <h5 class="text-center">Berries view</h5>
             <berries-container
                 v-for="(berries, index) in displayedBerries"
                 :key="index"
@@ -9,6 +10,7 @@
                 :v-show="!ajaxRequesting"
             ></berries-container>
             <loading-spinner v-show="ajaxRequesting"></loading-spinner>
+			<app-paginer :nbrPages="nbrPages" @update-page="updatePage"></app-paginer>            
         </div>
     </div>
 </template>
@@ -18,24 +20,23 @@
     import AppHeader from './../AppHeader.vue'
     import LoadingSpinner from './../util/LoadingSpinner.vue';
     import BerriesContainer from './berries/BerriesContainer.vue';
+    import AppPaginer from './../paginer/AppPaginer.vue';
 
     import Vuex from 'vuex';
     
     import berryLoader from './../../api/load-berries.js'
-    import axios from 'axios';
-    import URL from '../../api/url.js';
-
 
     export default {
         name: 'BerriesView',
-        components: { AppHeader, LoadingSpinner, BerriesContainer },
+        components: { AppHeader, LoadingSpinner, BerriesContainer, AppPaginer },
         data () {
             return {
                 ajaxRequesting: false,
-                berriesCount: this.getBerriesCount(),
+                berriesCount: 64,
                 currentPage: 1,
                 BERRIES_BY_PAGE: 16,
                 BERRIES_BY_ROW: 4,
+                nbrPages: 64 / 16
             }
         },
         computed: {
@@ -47,7 +48,6 @@
                 const end = this.currentPage * this.BERRIES_BY_PAGE;
 
                 const berries = this.getBerriesByRange(begin, end);
-                console.log(this.BERRIES_BY_ROW);
                 if(berries) {
                     for(let i = 0; i < berries.length; i++) {
                         const berry = berries[i];
@@ -63,7 +63,7 @@
                 result.push(buffer);
 
                 return result;
-            }
+            },
         },
         methods: {
             ...Vuex.mapActions(["addBerry"]),
@@ -78,13 +78,12 @@
 
                 this.ajaxRequesting = false;
             },
-            getBerriesCount: async function () {
-                const url = URL.berriesLink;
-                // retrieve the count of berries
-                const berriesCountRequest = await axios.get(url);
-                const berriesCount = berriesCountRequest.data.count;
-
-                return berriesCount;
+            updatePage(value, event) {
+                if(event) event.preventDefault();
+                this.currentPage = value;
+                const from = (this.currentPage - 1) * this.BERRIES_BY_PAGE + 1;
+                const to = this.currentPage * this.BERRIES_BY_PAGE;
+                this.loadBerries(from, to);
             }
         },
         created () {
