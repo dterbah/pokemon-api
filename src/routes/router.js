@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router';
 
+import berryMiddleware from './../middleware/berry-middleware.js';
 import storeMiddleware from './../middleware/store-middleware.js';
 
 const router = new VueRouter({
@@ -28,7 +29,8 @@ const router = new VueRouter({
         {
             path: '/berries/:berryId(\\d+)',
             component: require('./../components/views/berries/BerryView.vue').default,
-            name: 'berry-view'
+            name: 'berry-view',
+            beforeEnter: berryMiddleware
         },
         {
             path: '*',

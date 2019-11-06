@@ -21,7 +21,7 @@
                 :pokemons="container"
                 v-show="!procedingAjaxRequest"
             ></pokemon-box-container>
-			<app-paginer :nbrPages="nbrPages" @update-page="updatePage"></app-paginer>
+			<app-paginer ref="paginer" :nbrPages="nbrPages" @update-page="updatePage"></app-paginer>
         </div>
     </div>
 </template>
@@ -122,6 +122,7 @@ export default {
             this.currentGenerationIndex = $currentGenerationIndex;
             this.currentPage = 1;
             this.loadPokemons(this.currentGeneration.from, this.currentGeneration.from + this.POKEMONS_BY_PAGE);
+            this.$refs.paginer.currentPage = this.currentPage;
         }
     },
 

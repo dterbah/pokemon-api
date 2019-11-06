@@ -1,10 +1,10 @@
 <template>
     <div>
         <app-header title="Berry view"></app-header>
-        <div class="d-flex w-75 container berry-container border">
+        <div class="d-flex w-75 berry-container border">
             <div class="w-50 align-self-center">
                 <img :src="spriteLink" class="w-25 card-img-top"/>
-                <div class="card-body">
+                <div class="card-body d-flex justify-content-center">
                     <ul class="list card-text">
                         <li>Name of the berry : {{ berry.name.firstLetterToUpper() }}</li>
                         <li>ID of the berry : {{ berry.id }} </li>
@@ -22,7 +22,7 @@
                     <tbody>
                         <tr>
                             <td>Firmness</td>
-                            <td>{{ berry.specs.firmness }}</td>
+                            <td>{{ berry.specs.firmness.sanitize().firstLetterToUpper() }}</td>
                         </tr>
                         <tr>
                             <td>Growth time</td>
@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td>Natural gift power</td>
-                            <td>{{ berry.specs.naturalGiftPower.name }}</td>
+                            <td>{{ berry.specs.naturalGiftPower.name.firstLetterToUpper() }}</td>
                         </tr>
                         <tr>
                             <td>Size</td>
@@ -49,16 +49,24 @@
                             <td>{{ berry.specs.soilDryness }}</td>
                         </tr>
                         <tr>
-                            <td class="align-self-center">Flavors</td>
-                            <td>
-                                <ul class="list card-text">
-                                    <li
-                                        v-for="(flavor, index) in berry.specs.flavors"
-                                        :key="index"
-                                    >
-                                        {{ flavor.name }}, {{ flavor.potency}}
-                                    </li>
-                                </ul>
+                            <td colspan="2">
+                                <table class="table border-right border-left border-bottom w-100">
+                                    <thead class="table-warning">
+                                        <tr>
+                                            <th>Category of flavor</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="(flavor, index) in berry.specs.flavors"
+                                            :key="index"
+                                        >
+                                            <td>{{ flavor.name.firstLetterToUpper() }}</td>
+                                            <td>{{ flavor.potency }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                     </tbody>
@@ -99,11 +107,7 @@
 
     .berry-container {
         margin-top: 2%;
+        margin-left: auto;
+        margin-right: auto;
     }
-
-    table {
-        margin: 0;
-        padding: 0;
-    }
-
 </style>
