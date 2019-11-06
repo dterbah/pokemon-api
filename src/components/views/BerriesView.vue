@@ -3,13 +3,13 @@
         <app-header title="Berries API"></app-header>
         <div class="container">
             <h5 class="text-center">Berries view</h5>
+            <loading-spinner v-show="ajaxRequesting"></loading-spinner>
             <berries-container
                 v-for="(berries, index) in displayedBerries"
                 :key="index"
                 :berries="berries"
                 :v-show="!ajaxRequesting"
             ></berries-container>
-            <loading-spinner v-show="ajaxRequesting"></loading-spinner>
 			<app-paginer :nbrPages="nbrPages" @update-page="updatePage"></app-paginer>            
         </div>
     </div>
