@@ -5,15 +5,17 @@ import createPersistedState from 'vuex-persistedstate'
 const state = {
     pokemons: [],
     berries: [],
+    items: [],
 }
 
 const mutations = {
     ADD_POKEMON: (state, pokemon) => {
         state.pokemons.push(pokemon);
     },
-    ADD_BERRY: (stat, berry) => {
-        stat.berries.push(berry);
-    }
+    ADD_BERRY: (state, berry) => {
+        state.berries.push(berry);
+    },
+    ADD_ITEM: (state, item) => state.items.push(item),
 }
 
 const getters = {
@@ -46,6 +48,16 @@ const getters = {
         return result.length ? result[0] : undefined;
     },
     getBerriesByRange: (state) => (begin, end) => state.berries.filter(berry => berry !== undefined && berry.id >= begin && berry.id <= end),
+
+    // items
+    items: (state) => state.items,
+    getItemById: (state) => (id) => {
+        const result = state.items.filter(item => item.id === id);
+        return result.length ? result[0] : undefined;
+    },
+    getItemsByRange: (state) => (begin, end) => state.items.filter(item => {
+        return item !== undefined && item.id >= begin && item.id <= end;
+    })
 }
 
 const actions = {
@@ -54,6 +66,9 @@ const actions = {
     },
     addBerry: (store, berry) => {
         store.commit('ADD_BERRY', berry);
+    },
+    addItem: (store, item) => {
+        store.commit('ADD_ITEM', item);
     }
 }
 

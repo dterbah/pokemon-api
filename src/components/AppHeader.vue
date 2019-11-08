@@ -10,6 +10,9 @@
             <b-dropdown-item>
                 <router-link :to="{name: 'berries-view' }">Berries</router-link>
             </b-dropdown-item>
+            <b-dropdown-item>
+                <router-link :to="{name: 'objects-view'}">Objects List</router-link>
+            </b-dropdown-item>
         </b-dropdown>
         <div class="text-center title align-self-center">
             <h6>{{ $props.title }}</h6>

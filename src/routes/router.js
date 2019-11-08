@@ -14,7 +14,7 @@ const router = new VueRouter({
             path: '/pokemon/:pokemonId(\\d+)',
             component: require('./../components/views/PokemonView.vue').default,
             name: 'pokemon-view',
-            beforeEnter: storeMiddleware            
+            beforeEnter: storeMiddleware
         },
         {
             path: '/pokemon/compare',
@@ -31,6 +31,11 @@ const router = new VueRouter({
             component: require('./../components/views/berries/BerryView.vue').default,
             name: 'berry-view',
             beforeEnter: berryMiddleware
+        },
+        {
+            path: '/objects',
+            component: require('./../components/views/ObjectView.vue').default,
+            name: 'objects-view',
         },
         {
             path: '*',
