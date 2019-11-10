@@ -7,6 +7,7 @@ import URL from './url.js';
 // function that load an item by its id
 const itemLoader = async (itemId) => {
     let result = pokeStore.getters.getItemByid(itemId);
+    console.log(result);
     if(result) return undefined;
 
     let url = URL.itemLink + itemId;
