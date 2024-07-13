@@ -1,24 +1,5 @@
 # pokemon-api
 
-## Project setup
-```
-npm install
-```
+<img src="./src/assets/logo.png" width="150" />
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+This project is a small pokedex. You can find it online <a href="https://dterbah-pokedex.netlify.app/">here</a> !
